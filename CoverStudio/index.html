@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>INKA+ 封面工坊 · Cover Studio</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <a href="/">INKA<span>+</span> 工作台</a>
+      <small>像素合成 · 图层编辑</small>
+    </div>
+    <div class="header-actions">
+      <span id="version" class="version-pill"></span>
+      <button id="export" class="primary">导出交接稿 ↗</button>
+    </div>
+  </header>
+  <main>
+    <aside class="left">
+      <div class="rail-block">
+        <h2>设计概念</h2>
+        <form id="conceptForm">
+          <input id="concept" aria-label="封面概念" placeholder="输入新的封面概念…" required>
+          <button>开稿</button>
+        </form>
+        <button id="discuss" class="subtle-btn">设计对话 · 提修改意见</button>
+        <div id="notes"></div>
+      </div>
+
+      <div class="section">
+        <h2>构图参考</h2>
+        <button id="shuffle" class="light">随机三版 ↻</button>
+      </div>
+      <div id="choices"></div>
+      <div class="layout-bar">
+        <select id="layouts" aria-label="全部构图"></select>
+        <button id="useLayout">采用构图</button>
+        <button id="recommend" class="light">按概念推荐</button>
+      </div>
+
+      <div class="section">
+        <h2>设计过程</h2>
+      </div>
+      <div id="history"></div>
+    </aside>
+
+    <section class="work">
+      <div class="workhead">
+        <div>
+          <small id="format"></small>
+          <h1 id="heading"></h1>
+        </div>
+        <span id="layoutName" class="layout-badge"></span>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button data-mode="art">设计稿</button>
+        <button data-mode="layout">构图</button>
+        <button data-mode="mask">蒙版</button>
+        <button data-mode="overlay">UV 叠加</button>
+        <button data-mode="plate">UV 单版</button>
+      </div>
+
+      <div class="stage">
+        <div id="canvas"></div>
+      </div>
+
+      <div class="workfoot">
+        <div id="actions"></div>
+        <div id="delivery"></div><output id="status" role="status"></output>
+      </div>
+    </section>
+
+    <aside class="right">
+      <div class="section">
+        <h2>对象图层</h2>
+        <button id="add" class="light accent-link">＋ 添加</button>
+      </div>
+      <div class="row compact-row">
+        <button id="remove">删除所选图层</button>
+        <button id="layerNote">对这层提意见</button>
+      </div>
+      <div id="layers"></div>
+
+      <div class="section">
+        <h2>对象属性</h2>
+      </div>
+      <div id="layerFeedback" hidden></div>
+      <div id="props"></div>
+
+      <div id="globalTexture"></div>
+
+      <details id="processDetails">
+        <summary>工艺交付配置</summary>
+        <form id="process">
+          <label>工艺版名<input name="plate" required></label>
+          <label>机器 / RIP<input name="machine" placeholder="待印厂指定"></label>
+          <label>接收方格式<select name="format"><option>SVG</option><option>AI</option><option>PDF</option></select></label>
+          <p class="hint">AI、PDF 使用交接包内的 Illustrator 脚本生成。</p>
+          <button>保存配置</button>
+        </form>
+      </details>
+    </aside>
+  </main>
+
+  <dialog id="compare">
+    <div class="section">
+      <h2>版本比较</h2>
+      <button id="closeDialog">关闭</button>
+    </div>
+    <div class="pair"></div>
+  </dialog>
+
+  <dialog id="briefDialog">
+    <form id="briefForm">
+      <h2 id="briefHeading">设计对话</h2>
+      <label id="nameLine">封面名称<input id="briefName"></label>
+      <label>设计说明 / 修改意见<textarea id="message" required rows="5" placeholder="想做一本经典的愿望本，冷白底、墨黑字。希望靠字阶与同色纹样增加细节。"></textarea></label>
+      <label>参考图片<input id="references" type="file" accept="image/png,image/jpeg,image/webp" multiple></label>
+      <label>这些图片主要参考<select id="purpose"><option>风格与材质</option><option>配色</option><option>构图与字阶</option><option>生成新的元素</option><option>元素本身</option></select></label>
+      <div class="row dialog-actions"><button type="button" data-dismiss>取消</button><button class="primary">保存到设计对话</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="elementDialog">
+    <form id="elementForm">
+      <h2>添加元素</h2>
+      <label>元素类型<select id="elementKind"><option value="text">文字</option><option value="image">图片</option><option value="rect">色块</option><option value="ellipse">圆形</option><option value="ring">圆环</option></select></label>
+      <label>名称 / 文字<input id="elementName" required></label>
+      <label>图片文件<input id="elementFile" type="file" accept="image/png,image/jpeg,image/webp"></label>
+      <section id="assetDraft" hidden><img id="draftPreview" alt="待评素材" hidden><label>合成前意见<textarea id="draftNote" rows="2" placeholder="例如，保留断边，先试一档更深的蓝"></textarea></label><button type="button" data-act="stageAsset">存入待评素材</button></section>
+      <div class="row dialog-actions"><button type="button" data-dismiss>取消</button><button class="primary">添加到画布</button></div>
+    </form>
+  </dialog>
+
+  <script src="/ui.js"></script>
+</body>
+</html>

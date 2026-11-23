@@ -1,0 +1,6 @@
+projects/
+__pycache__/
+*.py[cod]
+*.zip
+.venv/
+.env
